@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stip.net.dao.WalletHistoryDao">
+  <resultMap id="BaseResultMap" type="com.stip.net.entity.WalletHistory">
+    <id column="walletHistory_history_id" jdbcType="VARCHAR" property="historyId" />
+    <result column="walletHistory_open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="walletHistory_balance" jdbcType="VARCHAR" property="balance" />
+    <result column="walletHistory_balance_change" jdbcType="VARCHAR" property="balanceChange" />
+    <result column="walletHistory_type" jdbcType="VARCHAR" property="type" />
+    <result column="walletHistory_status" jdbcType="VARCHAR" property="status" />
+    <result column="walletHistory_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="walletHistory_remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    walletHistory.history_id as walletHistory_history_id, walletHistory.open_id as walletHistory_open_id, 
+    walletHistory.balance as walletHistory_balance, walletHistory.balance_change as walletHistory_balance_change, 
+    walletHistory.type as walletHistory_type, walletHistory.status as walletHistory_status, 
+    walletHistory.create_time as walletHistory_create_time, walletHistory.remark as walletHistory_remark
+  </sql>
+  <select id="selectByExample" parameterType="com.stip.net.example.WalletHistoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wallet_history walletHistory
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="fromRowNum != null and toRowNum >= 0">
+      limit #{fromRowNum}, #{toRowNum}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wallet_history walletHistory
+    where walletHistory.history_id = #{historyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from wallet_history
+    where history_id = #{historyId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stip.net.example.WalletHistoryExample">
+    delete walletHistory from wallet_history walletHistory
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stip.net.entity.WalletHistory">
+    insert into wallet_history (history_id, open_id, balance, 
+      balance_change, type, status, 
+      create_time, remark)
+    values (#{historyId,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{balance,jdbcType=VARCHAR}, 
+      #{balanceChange,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stip.net.entity.WalletHistory">
+    insert into wallet_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="historyId != null">
+        history_id,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="balance != null">
+        balance,
+      </if>
+      <if test="balanceChange != null">
+        balance_change,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="historyId != null">
+        #{historyId,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceChange != null">
+        #{balanceChange,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stip.net.example.WalletHistoryExample" resultType="java.lang.Integer">
+    select count(*) from wallet_history walletHistory
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wallet_history walletHistory
+    <set>
+      <if test="record.historyId != null">
+        walletHistory.history_id = #{record.historyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openId != null">
+        walletHistory.open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balance != null">
+        walletHistory.balance = #{record.balance,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balanceChange != null">
+        walletHistory.balance_change = #{record.balanceChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        walletHistory.type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        walletHistory.status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        walletHistory.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        walletHistory.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wallet_history walletHistory
+    set walletHistory.history_id = #{record.historyId,jdbcType=VARCHAR},
+      walletHistory.open_id = #{record.openId,jdbcType=VARCHAR},
+      walletHistory.balance = #{record.balance,jdbcType=VARCHAR},
+      walletHistory.balance_change = #{record.balanceChange,jdbcType=VARCHAR},
+      walletHistory.type = #{record.type,jdbcType=VARCHAR},
+      walletHistory.status = #{record.status,jdbcType=VARCHAR},
+      walletHistory.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      walletHistory.remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stip.net.entity.WalletHistory">
+    update wallet_history
+    <set>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceChange != null">
+        balance_change = #{balanceChange,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where history_id = #{historyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stip.net.entity.WalletHistory">
+    update wallet_history
+    set open_id = #{openId,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=VARCHAR},
+      balance_change = #{balanceChange,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where history_id = #{historyId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,17 @@
+#qfdate {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 600px;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	z-index: 2;
+}
+
+#qfdate>input {
+	border: none;
+	outline: none;
+    z-index: -1;
+    font-size: .14rem;
+}

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stip.net.dao.CashBalanceRecordsDao">
+  <resultMap id="BaseResultMap" type="com.stip.net.entity.CashBalanceRecords">
+    <id column="cashBalanceRecords_cbr_id" jdbcType="VARCHAR" property="cbrId" />
+    <result column="cashBalanceRecords_out_trade_no" jdbcType="VARCHAR" property="outTradeNo" />
+    <result column="cashBalanceRecords_openid" jdbcType="VARCHAR" property="openid" />
+    <result column="cashBalanceRecords_amount" jdbcType="VARCHAR" property="amount" />
+    <result column="cashBalanceRecords_cbr_desc" jdbcType="VARCHAR" property="cbrDesc" />
+    <result column="cashBalanceRecords_cbr_status" jdbcType="VARCHAR" property="cbrStatus" />
+    <result column="cashBalanceRecords_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="cashBalanceRecords_remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cashBalanceRecords.cbr_id as cashBalanceRecords_cbr_id, cashBalanceRecords.out_trade_no as cashBalanceRecords_out_trade_no, 
+    cashBalanceRecords.openid as cashBalanceRecords_openid, cashBalanceRecords.amount as cashBalanceRecords_amount, 
+    cashBalanceRecords.cbr_desc as cashBalanceRecords_cbr_desc, cashBalanceRecords.cbr_status as cashBalanceRecords_cbr_status, 
+    cashBalanceRecords.create_time as cashBalanceRecords_create_time, cashBalanceRecords.remark as cashBalanceRecords_remark
+  </sql>
+  <select id="selectByExample" parameterType="com.stip.net.example.CashBalanceRecordsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cash_balance_records cashBalanceRecords
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="fromRowNum != null and toRowNum >= 0">
+      limit #{fromRowNum}, #{toRowNum}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cash_balance_records cashBalanceRecords
+    where cashBalanceRecords.cbr_id = #{cbrId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from cash_balance_records
+    where cbr_id = #{cbrId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stip.net.example.CashBalanceRecordsExample">
+    delete cashBalanceRecords from cash_balance_records cashBalanceRecords
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stip.net.entity.CashBalanceRecords">
+    insert into cash_balance_records (cbr_id, out_trade_no, openid, 
+      amount, cbr_desc, cbr_status, 
+      create_time, remark)
+    values (#{cbrId,jdbcType=VARCHAR}, #{outTradeNo,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=VARCHAR}, #{cbrDesc,jdbcType=VARCHAR}, #{cbrStatus,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stip.net.entity.CashBalanceRecords">
+    insert into cash_balance_records
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cbrId != null">
+        cbr_id,
+      </if>
+      <if test="outTradeNo != null">
+        out_trade_no,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="cbrDesc != null">
+        cbr_desc,
+      </if>
+      <if test="cbrStatus != null">
+        cbr_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cbrId != null">
+        #{cbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null">
+        #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="cbrDesc != null">
+        #{cbrDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="cbrStatus != null">
+        #{cbrStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stip.net.example.CashBalanceRecordsExample" resultType="java.lang.Integer">
+    select count(*) from cash_balance_records cashBalanceRecords
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cash_balance_records cashBalanceRecords
+    <set>
+      <if test="record.cbrId != null">
+        cashBalanceRecords.cbr_id = #{record.cbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outTradeNo != null">
+        cashBalanceRecords.out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openid != null">
+        cashBalanceRecords.openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null">
+        cashBalanceRecords.amount = #{record.amount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cbrDesc != null">
+        cashBalanceRecords.cbr_desc = #{record.cbrDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cbrStatus != null">
+        cashBalanceRecords.cbr_status = #{record.cbrStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        cashBalanceRecords.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        cashBalanceRecords.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cash_balance_records cashBalanceRecords
+    set cashBalanceRecords.cbr_id = #{record.cbrId,jdbcType=VARCHAR},
+      cashBalanceRecords.out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+      cashBalanceRecords.openid = #{record.openid,jdbcType=VARCHAR},
+      cashBalanceRecords.amount = #{record.amount,jdbcType=VARCHAR},
+      cashBalanceRecords.cbr_desc = #{record.cbrDesc,jdbcType=VARCHAR},
+      cashBalanceRecords.cbr_status = #{record.cbrStatus,jdbcType=VARCHAR},
+      cashBalanceRecords.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      cashBalanceRecords.remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stip.net.entity.CashBalanceRecords">
+    update cash_balance_records
+    <set>
+      <if test="outTradeNo != null">
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="cbrDesc != null">
+        cbr_desc = #{cbrDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="cbrStatus != null">
+        cbr_status = #{cbrStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cbr_id = #{cbrId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stip.net.entity.CashBalanceRecords">
+    update cash_balance_records
+    set out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=VARCHAR},
+      cbr_desc = #{cbrDesc,jdbcType=VARCHAR},
+      cbr_status = #{cbrStatus,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where cbr_id = #{cbrId,jdbcType=VARCHAR}
+  </update>
+</mapper>

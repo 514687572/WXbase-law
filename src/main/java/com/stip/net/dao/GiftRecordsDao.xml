@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stip.net.dao.GiftRecordsDao">
+  <resultMap id="BaseResultMap" type="com.stip.net.entity.GiftRecords">
+    <id column="giftRecords_record_id" jdbcType="VARCHAR" property="recordId" />
+    <result column="giftRecords_out_order_no" jdbcType="VARCHAR" property="outOrderNo" />
+    <result column="giftRecords_out_open_id" jdbcType="VARCHAR" property="outOpenId" />
+    <result column="giftRecords_in_open_id" jdbcType="VARCHAR" property="inOpenId" />
+    <result column="giftRecords_date_id" jdbcType="VARCHAR" property="dateId" />
+    <result column="giftRecords_gift_id" jdbcType="INTEGER" property="giftId" />
+    <result column="giftRecords_status" jdbcType="VARCHAR" property="status" />
+    <result column="giftRecords_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="giftRecords_remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    giftRecords.record_id as giftRecords_record_id, giftRecords.out_order_no as giftRecords_out_order_no, 
+    giftRecords.out_open_id as giftRecords_out_open_id, giftRecords.in_open_id as giftRecords_in_open_id, 
+    giftRecords.date_id as giftRecords_date_id, giftRecords.gift_id as giftRecords_gift_id, 
+    giftRecords.status as giftRecords_status, giftRecords.create_time as giftRecords_create_time, 
+    giftRecords.remark as giftRecords_remark
+  </sql>
+  <select id="selectByExample" parameterType="com.stip.net.example.GiftRecordsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gift_records giftRecords
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="fromRowNum != null and toRowNum >= 0">
+      limit #{fromRowNum}, #{toRowNum}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gift_records giftRecords
+    where giftRecords.record_id = #{recordId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from gift_records
+    where record_id = #{recordId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stip.net.example.GiftRecordsExample">
+    delete giftRecords from gift_records giftRecords
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stip.net.entity.GiftRecords">
+    insert into gift_records (record_id, out_order_no, out_open_id, 
+      in_open_id, date_id, gift_id, 
+      status, create_time, remark
+      )
+    values (#{recordId,jdbcType=VARCHAR}, #{outOrderNo,jdbcType=VARCHAR}, #{outOpenId,jdbcType=VARCHAR}, 
+      #{inOpenId,jdbcType=VARCHAR}, #{dateId,jdbcType=VARCHAR}, #{giftId,jdbcType=INTEGER}, 
+      #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stip.net.entity.GiftRecords">
+    insert into gift_records
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        record_id,
+      </if>
+      <if test="outOrderNo != null">
+        out_order_no,
+      </if>
+      <if test="outOpenId != null">
+        out_open_id,
+      </if>
+      <if test="inOpenId != null">
+        in_open_id,
+      </if>
+      <if test="dateId != null">
+        date_id,
+      </if>
+      <if test="giftId != null">
+        gift_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        #{recordId,jdbcType=VARCHAR},
+      </if>
+      <if test="outOrderNo != null">
+        #{outOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="outOpenId != null">
+        #{outOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="inOpenId != null">
+        #{inOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="dateId != null">
+        #{dateId,jdbcType=VARCHAR},
+      </if>
+      <if test="giftId != null">
+        #{giftId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stip.net.example.GiftRecordsExample" resultType="java.lang.Integer">
+    select count(*) from gift_records giftRecords
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update gift_records giftRecords
+    <set>
+      <if test="record.recordId != null">
+        giftRecords.record_id = #{record.recordId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outOrderNo != null">
+        giftRecords.out_order_no = #{record.outOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outOpenId != null">
+        giftRecords.out_open_id = #{record.outOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inOpenId != null">
+        giftRecords.in_open_id = #{record.inOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateId != null">
+        giftRecords.date_id = #{record.dateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.giftId != null">
+        giftRecords.gift_id = #{record.giftId,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        giftRecords.status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        giftRecords.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        giftRecords.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update gift_records giftRecords
+    set giftRecords.record_id = #{record.recordId,jdbcType=VARCHAR},
+      giftRecords.out_order_no = #{record.outOrderNo,jdbcType=VARCHAR},
+      giftRecords.out_open_id = #{record.outOpenId,jdbcType=VARCHAR},
+      giftRecords.in_open_id = #{record.inOpenId,jdbcType=VARCHAR},
+      giftRecords.date_id = #{record.dateId,jdbcType=VARCHAR},
+      giftRecords.gift_id = #{record.giftId,jdbcType=INTEGER},
+      giftRecords.status = #{record.status,jdbcType=VARCHAR},
+      giftRecords.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      giftRecords.remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stip.net.entity.GiftRecords">
+    update gift_records
+    <set>
+      <if test="outOrderNo != null">
+        out_order_no = #{outOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="outOpenId != null">
+        out_open_id = #{outOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="inOpenId != null">
+        in_open_id = #{inOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="dateId != null">
+        date_id = #{dateId,jdbcType=VARCHAR},
+      </if>
+      <if test="giftId != null">
+        gift_id = #{giftId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where record_id = #{recordId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stip.net.entity.GiftRecords">
+    update gift_records
+    set out_order_no = #{outOrderNo,jdbcType=VARCHAR},
+      out_open_id = #{outOpenId,jdbcType=VARCHAR},
+      in_open_id = #{inOpenId,jdbcType=VARCHAR},
+      date_id = #{dateId,jdbcType=VARCHAR},
+      gift_id = #{giftId,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where record_id = #{recordId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stip.net.dao.GiftListDao">
+  <resultMap id="BaseResultMap" type="com.stip.net.entity.GiftList">
+    <id column="giftList_gift_id" jdbcType="INTEGER" property="giftId" />
+    <result column="giftList_gift_name" jdbcType="VARCHAR" property="giftName" />
+    <result column="giftList_gift_price" jdbcType="VARCHAR" property="giftPrice" />
+    <result column="giftList_gift_image" jdbcType="VARCHAR" property="giftImage" />
+    <result column="giftList_gift_order" jdbcType="INTEGER" property="giftOrder" />
+    <result column="giftList_gift_desc" jdbcType="VARCHAR" property="giftDesc" />
+    <result column="giftList_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="giftList_remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    giftList.gift_id as giftList_gift_id, giftList.gift_name as giftList_gift_name, giftList.gift_price as giftList_gift_price, 
+    giftList.gift_image as giftList_gift_image, giftList.gift_order as giftList_gift_order, 
+    giftList.gift_desc as giftList_gift_desc, giftList.create_time as giftList_create_time, 
+    giftList.remark as giftList_remark
+  </sql>
+  <select id="selectByExample" parameterType="com.stip.net.example.GiftListExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gift_list giftList
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="fromRowNum != null and toRowNum >= 0">
+      limit #{fromRowNum}, #{toRowNum}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gift_list giftList
+    where giftList.gift_id = #{giftId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from gift_list
+    where gift_id = #{giftId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stip.net.example.GiftListExample">
+    delete giftList from gift_list giftList
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stip.net.entity.GiftList">
+    insert into gift_list (gift_id, gift_name, gift_price, 
+      gift_image, gift_order, gift_desc, 
+      create_time, remark)
+    values (#{giftId,jdbcType=INTEGER}, #{giftName,jdbcType=VARCHAR}, #{giftPrice,jdbcType=VARCHAR}, 
+      #{giftImage,jdbcType=VARCHAR}, #{giftOrder,jdbcType=INTEGER}, #{giftDesc,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stip.net.entity.GiftList">
+    insert into gift_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="giftId != null">
+        gift_id,
+      </if>
+      <if test="giftName != null">
+        gift_name,
+      </if>
+      <if test="giftPrice != null">
+        gift_price,
+      </if>
+      <if test="giftImage != null">
+        gift_image,
+      </if>
+      <if test="giftOrder != null">
+        gift_order,
+      </if>
+      <if test="giftDesc != null">
+        gift_desc,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="giftId != null">
+        #{giftId,jdbcType=INTEGER},
+      </if>
+      <if test="giftName != null">
+        #{giftName,jdbcType=VARCHAR},
+      </if>
+      <if test="giftPrice != null">
+        #{giftPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="giftImage != null">
+        #{giftImage,jdbcType=VARCHAR},
+      </if>
+      <if test="giftOrder != null">
+        #{giftOrder,jdbcType=INTEGER},
+      </if>
+      <if test="giftDesc != null">
+        #{giftDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stip.net.example.GiftListExample" resultType="java.lang.Integer">
+    select count(*) from gift_list giftList
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update gift_list giftList
+    <set>
+      <if test="record.giftId != null">
+        giftList.gift_id = #{record.giftId,jdbcType=INTEGER},
+      </if>
+      <if test="record.giftName != null">
+        giftList.gift_name = #{record.giftName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.giftPrice != null">
+        giftList.gift_price = #{record.giftPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.giftImage != null">
+        giftList.gift_image = #{record.giftImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.giftOrder != null">
+        giftList.gift_order = #{record.giftOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.giftDesc != null">
+        giftList.gift_desc = #{record.giftDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        giftList.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        giftList.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update gift_list giftList
+    set giftList.gift_id = #{record.giftId,jdbcType=INTEGER},
+      giftList.gift_name = #{record.giftName,jdbcType=VARCHAR},
+      giftList.gift_price = #{record.giftPrice,jdbcType=VARCHAR},
+      giftList.gift_image = #{record.giftImage,jdbcType=VARCHAR},
+      giftList.gift_order = #{record.giftOrder,jdbcType=INTEGER},
+      giftList.gift_desc = #{record.giftDesc,jdbcType=VARCHAR},
+      giftList.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      giftList.remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stip.net.entity.GiftList">
+    update gift_list
+    <set>
+      <if test="giftName != null">
+        gift_name = #{giftName,jdbcType=VARCHAR},
+      </if>
+      <if test="giftPrice != null">
+        gift_price = #{giftPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="giftImage != null">
+        gift_image = #{giftImage,jdbcType=VARCHAR},
+      </if>
+      <if test="giftOrder != null">
+        gift_order = #{giftOrder,jdbcType=INTEGER},
+      </if>
+      <if test="giftDesc != null">
+        gift_desc = #{giftDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where gift_id = #{giftId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stip.net.entity.GiftList">
+    update gift_list
+    set gift_name = #{giftName,jdbcType=VARCHAR},
+      gift_price = #{giftPrice,jdbcType=VARCHAR},
+      gift_image = #{giftImage,jdbcType=VARCHAR},
+      gift_order = #{giftOrder,jdbcType=INTEGER},
+      gift_desc = #{giftDesc,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where gift_id = #{giftId,jdbcType=INTEGER}
+  </update>
+</mapper>

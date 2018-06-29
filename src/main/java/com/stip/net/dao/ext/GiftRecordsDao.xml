@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stip.net.dao.GiftRecordsDao">
+  <!--
+    文件的生成时间： 2018-03-05 10:58:20.
+    你应该把Mapper类的扩展方法的sql语句放在这个文件里面
+  -->
+  
+  <resultMap id="GiftBaseResultMap" type="com.stip.net.mp.dto.GiftInfo">
+    <id column="giftList_gift_id" jdbcType="INTEGER" property="giftId" />
+    <result column="giftRecords_out_order_no" jdbcType="VARCHAR" property="outOrderNo" />
+    <result column="giftRecords_out_open_id" jdbcType="VARCHAR" property="outOpenId" />
+    <result column="giftRecords_in_open_id" jdbcType="VARCHAR" property="inOpenId" />
+    <result column="giftRecords_date_id" jdbcType="VARCHAR" property="dateId" />
+    <result column="giftRecords_status" jdbcType="VARCHAR" property="status" />
+    <result column="giftRecords_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="giftList_gift_name" jdbcType="VARCHAR" property="giftName" />
+    <result column="giftList_gift_price" jdbcType="VARCHAR" property="giftPrice" />
+    <result column="giftList_gift_image" jdbcType="VARCHAR" property="giftImage" />
+    <result column="giftList_gift_order" jdbcType="INTEGER" property="giftOrder" />
+    <result column="giftList_gift_desc" jdbcType="VARCHAR" property="giftDesc" />
+    <result column="muser_headimgurl" jdbcType="VARCHAR" property="headimgurl" />
+    <result column="muser_nickname" jdbcType="VARCHAR" property="nickname" />
+  </resultMap>
+  
+  <select id="selectGiftDetailByExample" parameterType="java.lang.String" resultMap="GiftBaseResultMap">
+	 SELECT
+		giftRecords.out_order_no AS giftRecords_out_order_no,
+		giftRecords.out_open_id AS giftRecords_out_open_id,
+		giftRecords.in_open_id AS giftRecords_in_open_id,
+		giftRecords.date_id AS giftRecords_date_id,
+		giftRecords. STATUS AS giftRecords_status,
+		giftRecords.create_time AS giftRecords_create_time,
+		giftList.gift_id AS giftList_gift_id,
+		giftList.gift_name AS giftList_gift_name,
+		giftList.gift_price AS giftList_gift_price,
+		giftList.gift_image AS giftList_gift_image,
+		giftList.gift_order AS giftList_gift_order,
+		giftList.gift_desc AS giftList_gift_desc,
+		muser.nickname AS muser_nickname,
+		muser.headimgurl AS muser_headimgurl
+	FROM
+		gift_records giftRecords,
+		gift_list giftList,
+		muser muser
+	WHERE
+		giftRecords.in_open_id = #{openId,jdbcType=VARCHAR}
+	AND giftRecords.gift_id = giftList.gift_id
+	AND giftRecords.out_open_id = muser.app_openid ORDER BY giftRecords.create_time desc
+  </select>
+  
+</mapper>
