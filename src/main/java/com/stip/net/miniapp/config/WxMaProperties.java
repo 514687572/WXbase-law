@@ -10,7 +10,7 @@ public class WxMaProperties {
     /**
      * 设置微信小程序的appid
      */
-	@Value("#{wxProperties.wxapp_token}")
+	@Value("#{wxProperties.wxapp_appid}")
     private String appid;
 
     /**
@@ -22,13 +22,13 @@ public class WxMaProperties {
     /**
      * 设置微信小程序的token
      */
-	@Value("#{wxProperties.wxapp_token}")
+	//@Value("#{wxProperties.wxapp_token}")
     private String token;
 
     /**
      * 设置微信小程序的EncodingAESKey
      */
-	@Value("#{wxProperties.wxapp_aeskey}")
+	//@Value("#{wxProperties.wxapp_aeskey}")
     private String aesKey;
 
     /**

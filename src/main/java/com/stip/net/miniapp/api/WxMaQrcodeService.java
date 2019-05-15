@@ -1,8 +1,8 @@
 package com.stip.net.miniapp.api;
 
-import java.io.File;
-
 import me.chanjar.weixin.common.exception.WxErrorException;
+
+import java.io.File;
 
 /**
  * <pre>

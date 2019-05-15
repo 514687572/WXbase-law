@@ -1,7 +1,6 @@
 package com.stip.net.miniapp.api;
 
 import com.stip.net.miniapp.config.WxMaConfig;
-
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.common.util.http.MediaUploadRequestExecutor;
 import me.chanjar.weixin.common.util.http.RequestExecutor;

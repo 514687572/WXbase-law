@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stip.net.SysUserDao">
+  <!--
+    文件的生成时间： 2019-02-14 09:55:50.
+    你应该把Mapper类的扩展方法的sql语句放在这个文件里面
+  -->
+  
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into t_sys_user (id, openid, app_openid, nickname, city, 
+      province, country, headimgurl, create_time, gender, avatarUrl, 
+      unionId, watermark, remark) values 
+    <foreach item='item' collection='list' separator=','  index=''>
+     (#{item.id,jdbcType=VARCHAR}, #{item.openid,jdbcType=VARCHAR}, 
+      #{item.appOpenid,jdbcType=VARCHAR}, #{item.nickname,jdbcType=VARCHAR}, 
+      #{item.city,jdbcType=VARCHAR}, #{item.province,jdbcType=VARCHAR}, 
+      #{item.country,jdbcType=VARCHAR}, #{item.headimgurl,jdbcType=VARCHAR}, 
+      #{item.createTime,jdbcType=TIMESTAMP}, #{item.gender,jdbcType=VARCHAR}, 
+      #{item.avatarurl,jdbcType=VARCHAR}, #{item.unionid,jdbcType=VARCHAR}, 
+      #{item.watermark,jdbcType=VARCHAR}, #{item.remark,jdbcType=VARCHAR}) 
+    </foreach>
+  </insert>
+</mapper>

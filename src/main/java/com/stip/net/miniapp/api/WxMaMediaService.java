@@ -1,10 +1,10 @@
 package com.stip.net.miniapp.api;
 
-import java.io.File;
-import java.io.InputStream;
-
 import me.chanjar.weixin.common.bean.result.WxMediaUploadResult;
 import me.chanjar.weixin.common.exception.WxErrorException;
+
+import java.io.File;
+import java.io.InputStream;
 
 /**
  * <pre>

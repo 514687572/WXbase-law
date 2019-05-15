@@ -1,16 +1,11 @@
 package com.stip.net.miniapp.util.xml;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.stip.net.miniapp.bean.WxMaMessage;
 import com.thoughtworks.xstream.XStream;
-
 import me.chanjar.weixin.common.util.xml.XStreamInitializer;
+
+import java.io.InputStream;
+import java.util.*;
 
 /**
  * @author cja

@@ -1,10 +1,10 @@
 package com.stip.net.miniapp.bean;
 
+import com.stip.net.miniapp.util.json.WxMaGsonBuilder;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.stip.net.miniapp.util.json.WxMaGsonBuilder;
 
 /**
  * 参考 https://mp.weixin.qq.com/debug/wxadoc/dev/api/notice.html#接口说明  模板消息部分

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stip.net.dao.UserStockInfoDao">
+  <resultMap id="BaseResultMap" type="com.stip.net.entity.UserStockInfo">
+    <id column="userStockInfo_appeal_id" jdbcType="INTEGER" property="appealId" />
+    <result column="userStockInfo_user_open_id" jdbcType="VARCHAR" property="userOpenId" />
+    <result column="userStockInfo_stock_num" jdbcType="INTEGER" property="stockNum" />
+    <result column="userStockInfo_stock_code" jdbcType="VARCHAR" property="stockCode" />
+    <result column="userStockInfo_stock_name" jdbcType="VARCHAR" property="stockName" />
+    <result column="userStockInfo_out_money" jdbcType="VARCHAR" property="outMoney" />
+    <result column="userStockInfo_user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="userStockInfo_user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="userStockInfo_user_address" jdbcType="VARCHAR" property="userAddress" />
+    <result column="userStockInfo_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="userStockInfo_remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    userStockInfo.appeal_id as userStockInfo_appeal_id, userStockInfo.user_open_id as userStockInfo_user_open_id, 
+    userStockInfo.stock_num as userStockInfo_stock_num, userStockInfo.stock_code as userStockInfo_stock_code, 
+    userStockInfo.stock_name as userStockInfo_stock_name, userStockInfo.out_money as userStockInfo_out_money, 
+    userStockInfo.user_name as userStockInfo_user_name, userStockInfo.user_phone as userStockInfo_user_phone, 
+    userStockInfo.user_address as userStockInfo_user_address, userStockInfo.create_time as userStockInfo_create_time, 
+    userStockInfo.remark as userStockInfo_remark
+  </sql>
+  <select id="selectByExample" parameterType="com.stip.net.example.UserStockInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_user_stock_info userStockInfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="fromRowNum != null and toRowNum >= 0">
+      limit #{fromRowNum}, #{toRowNum}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_stock_info userStockInfo
+    where userStockInfo.appeal_id = #{appealId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_user_stock_info
+    where appeal_id = #{appealId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stip.net.example.UserStockInfoExample">
+    delete userStockInfo from t_user_stock_info userStockInfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stip.net.entity.UserStockInfo">
+    insert into t_user_stock_info (appeal_id, user_open_id, stock_num, 
+      stock_code, stock_name, out_money, 
+      user_name, user_phone, user_address, 
+      create_time, remark)
+    values (#{appealId,jdbcType=INTEGER}, #{userOpenId,jdbcType=VARCHAR}, #{stockNum,jdbcType=INTEGER}, 
+      #{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, #{outMoney,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stip.net.entity.UserStockInfo">
+    insert into t_user_stock_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="appealId != null">
+        appeal_id,
+      </if>
+      <if test="userOpenId != null">
+        user_open_id,
+      </if>
+      <if test="stockNum != null">
+        stock_num,
+      </if>
+      <if test="stockCode != null">
+        stock_code,
+      </if>
+      <if test="stockName != null">
+        stock_name,
+      </if>
+      <if test="outMoney != null">
+        out_money,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="userAddress != null">
+        user_address,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="appealId != null">
+        #{appealId,jdbcType=INTEGER},
+      </if>
+      <if test="userOpenId != null">
+        #{userOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null">
+        #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null">
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null">
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="outMoney != null">
+        #{outMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null">
+        #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stip.net.example.UserStockInfoExample" resultType="java.lang.Integer">
+    select count(*) from t_user_stock_info userStockInfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_user_stock_info userStockInfo
+    <set>
+      <if test="record.appealId != null">
+        userStockInfo.appeal_id = #{record.appealId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userOpenId != null">
+        userStockInfo.user_open_id = #{record.userOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockNum != null">
+        userStockInfo.stock_num = #{record.stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockCode != null">
+        userStockInfo.stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null">
+        userStockInfo.stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outMoney != null">
+        userStockInfo.out_money = #{record.outMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        userStockInfo.user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPhone != null">
+        userStockInfo.user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAddress != null">
+        userStockInfo.user_address = #{record.userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        userStockInfo.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        userStockInfo.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_user_stock_info userStockInfo
+    set userStockInfo.appeal_id = #{record.appealId,jdbcType=INTEGER},
+      userStockInfo.user_open_id = #{record.userOpenId,jdbcType=VARCHAR},
+      userStockInfo.stock_num = #{record.stockNum,jdbcType=INTEGER},
+      userStockInfo.stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      userStockInfo.stock_name = #{record.stockName,jdbcType=VARCHAR},
+      userStockInfo.out_money = #{record.outMoney,jdbcType=VARCHAR},
+      userStockInfo.user_name = #{record.userName,jdbcType=VARCHAR},
+      userStockInfo.user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      userStockInfo.user_address = #{record.userAddress,jdbcType=VARCHAR},
+      userStockInfo.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      userStockInfo.remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stip.net.entity.UserStockInfo">
+    update t_user_stock_info
+    <set>
+      <if test="userOpenId != null">
+        user_open_id = #{userOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null">
+        stock_num = #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null">
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null">
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="outMoney != null">
+        out_money = #{outMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null">
+        user_address = #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where appeal_id = #{appealId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stip.net.entity.UserStockInfo">
+    update t_user_stock_info
+    set user_open_id = #{userOpenId,jdbcType=VARCHAR},
+      stock_num = #{stockNum,jdbcType=INTEGER},
+      stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      out_money = #{outMoney,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_address = #{userAddress,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where appeal_id = #{appealId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,12 +1,12 @@
 package com.stip.net.miniapp.util.json;
 
-import java.lang.reflect.Type;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.stip.net.miniapp.bean.WxMaTemplateMessage;
+
+import java.lang.reflect.Type;
 
 /**
  * @author cja

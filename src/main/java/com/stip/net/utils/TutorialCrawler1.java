@@ -1,10 +1,9 @@
 package com.stip.net.utils;
 
-import org.jsoup.select.Elements;
-
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
 import cn.edu.hfut.dmic.webcollector.model.Page;
 import cn.edu.hfut.dmic.webcollector.plugin.berkeley.BreadthCrawler;
+import org.jsoup.select.Elements;
 
 public class TutorialCrawler1 extends BreadthCrawler {
 

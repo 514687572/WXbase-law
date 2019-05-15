@@ -1,10 +1,10 @@
 package com.stip.net.miniapp.bean;
 
-import java.io.Serializable;
-
 import com.google.gson.annotations.SerializedName;
 import com.stip.net.miniapp.api.WxMaQrcodeService;
 import com.stip.net.miniapp.util.json.WxMaGsonBuilder;
+
+import java.io.Serializable;
 
 /**
  * Created by Element on 2017/7/27.

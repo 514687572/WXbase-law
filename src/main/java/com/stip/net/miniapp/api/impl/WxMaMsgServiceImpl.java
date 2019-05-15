@@ -1,17 +1,15 @@
 package com.stip.net.miniapp.api.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.stip.net.miniapp.api.WxMaMsgService;
 import com.stip.net.miniapp.api.WxMaService;
 import com.stip.net.miniapp.bean.WxMaKefuMessage;
 import com.stip.net.miniapp.bean.WxMaTemplateMessage;
-
 import me.chanjar.weixin.common.bean.result.WxError;
 import me.chanjar.weixin.common.exception.WxErrorException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author cja

@@ -2,7 +2,6 @@ package com.stip.net.miniapp.api;
 
 import com.stip.net.miniapp.bean.WxMaJscode2SessionResult;
 import com.stip.net.miniapp.bean.WxMaUserInfo;
-
 import me.chanjar.weixin.common.exception.WxErrorException;
 
 /**

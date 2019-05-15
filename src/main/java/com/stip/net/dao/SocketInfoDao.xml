@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stip.net.dao.SocketInfoDao">
+  <resultMap id="BaseResultMap" type="com.stip.net.entity.SocketInfo">
+    <id column="socketInfo_stock_id" jdbcType="INTEGER" property="stockId" />
+    <result column="socketInfo_stock_name" jdbcType="VARCHAR" property="stockName" />
+    <result column="socketInfo_stock_num" jdbcType="VARCHAR" property="stockNum" />
+    <result column="socketInfo_stock_remark" jdbcType="VARCHAR" property="stockRemark" />
+    <result column="socketInfo_stock_end_time" jdbcType="TIMESTAMP" property="stockEndTime" />
+    <result column="socketInfo_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="socketInfo_opt_user" jdbcType="VARCHAR" property="optUser" />
+    <result column="socketInfo_remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    socketInfo.stock_id as socketInfo_stock_id, socketInfo.stock_name as socketInfo_stock_name, 
+    socketInfo.stock_num as socketInfo_stock_num, socketInfo.stock_remark as socketInfo_stock_remark, 
+    socketInfo.stock_end_time as socketInfo_stock_end_time, socketInfo.create_time as socketInfo_create_time, 
+    socketInfo.opt_user as socketInfo_opt_user, socketInfo.remark as socketInfo_remark
+  </sql>
+  <select id="selectByExample" parameterType="com.stip.net.example.SocketInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_socket_info socketInfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="fromRowNum != null and toRowNum >= 0">
+      limit #{fromRowNum}, #{toRowNum}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_socket_info socketInfo
+    where socketInfo.stock_id = #{stockId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_socket_info
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stip.net.example.SocketInfoExample">
+    delete socketInfo from t_socket_info socketInfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stip.net.entity.SocketInfo">
+    insert into t_socket_info (stock_id, stock_name, stock_num, 
+      stock_remark, stock_end_time, create_time, 
+      opt_user, remark)
+    values (#{stockId,jdbcType=INTEGER}, #{stockName,jdbcType=VARCHAR}, #{stockNum,jdbcType=VARCHAR}, 
+      #{stockRemark,jdbcType=VARCHAR}, #{stockEndTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{optUser,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stip.net.entity.SocketInfo">
+    insert into t_socket_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stockId != null">
+        stock_id,
+      </if>
+      <if test="stockName != null">
+        stock_name,
+      </if>
+      <if test="stockNum != null">
+        stock_num,
+      </if>
+      <if test="stockRemark != null">
+        stock_remark,
+      </if>
+      <if test="stockEndTime != null">
+        stock_end_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="optUser != null">
+        opt_user,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stockId != null">
+        #{stockId,jdbcType=INTEGER},
+      </if>
+      <if test="stockName != null">
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null">
+        #{stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stockRemark != null">
+        #{stockRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="stockEndTime != null">
+        #{stockEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="optUser != null">
+        #{optUser,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stip.net.example.SocketInfoExample" resultType="java.lang.Integer">
+    select count(*) from t_socket_info socketInfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_socket_info socketInfo
+    <set>
+      <if test="record.stockId != null">
+        socketInfo.stock_id = #{record.stockId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockName != null">
+        socketInfo.stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockNum != null">
+        socketInfo.stock_num = #{record.stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockRemark != null">
+        socketInfo.stock_remark = #{record.stockRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockEndTime != null">
+        socketInfo.stock_end_time = #{record.stockEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        socketInfo.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.optUser != null">
+        socketInfo.opt_user = #{record.optUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        socketInfo.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_socket_info socketInfo
+    set socketInfo.stock_id = #{record.stockId,jdbcType=INTEGER},
+      socketInfo.stock_name = #{record.stockName,jdbcType=VARCHAR},
+      socketInfo.stock_num = #{record.stockNum,jdbcType=VARCHAR},
+      socketInfo.stock_remark = #{record.stockRemark,jdbcType=VARCHAR},
+      socketInfo.stock_end_time = #{record.stockEndTime,jdbcType=TIMESTAMP},
+      socketInfo.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      socketInfo.opt_user = #{record.optUser,jdbcType=VARCHAR},
+      socketInfo.remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stip.net.entity.SocketInfo">
+    update t_socket_info
+    <set>
+      <if test="stockName != null">
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null">
+        stock_num = #{stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stockRemark != null">
+        stock_remark = #{stockRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="stockEndTime != null">
+        stock_end_time = #{stockEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="optUser != null">
+        opt_user = #{optUser,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stip.net.entity.SocketInfo">
+    update t_socket_info
+    set stock_name = #{stockName,jdbcType=VARCHAR},
+      stock_num = #{stockNum,jdbcType=VARCHAR},
+      stock_remark = #{stockRemark,jdbcType=VARCHAR},
+      stock_end_time = #{stockEndTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      opt_user = #{optUser,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </update>
+</mapper>

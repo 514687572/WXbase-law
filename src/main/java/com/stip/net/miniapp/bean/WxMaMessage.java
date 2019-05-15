@@ -1,12 +1,5 @@
 package com.stip.net.miniapp.bean;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
-
-import org.apache.commons.io.IOUtils;
-
 import com.google.gson.annotations.SerializedName;
 import com.stip.net.miniapp.config.WxMaConfig;
 import com.stip.net.miniapp.util.crypt.WxMaCryptUtils;
@@ -14,9 +7,14 @@ import com.stip.net.miniapp.util.json.WxMaGsonBuilder;
 import com.stip.net.miniapp.util.xml.XStreamTransformer;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
-
 import me.chanjar.weixin.common.util.ToStringUtils;
 import me.chanjar.weixin.common.util.xml.XStreamCDataConverter;
+import org.apache.commons.io.IOUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author cja

@@ -47,6 +47,7 @@ public class Constantutils {
 	
 	public static final String BIRTHDAY = "birthday";// 生日
 	public static final String LOVE = "love";// 爱情
+	public static final String NEW = "new";// baby
 	public static final String SECRET = "secret";// 生日密码
 	
 	public static final String remindTypeo = "不重复";// 不重复
@@ -75,11 +76,16 @@ public class Constantutils {
 	 * 小程序消息模板
 	 */
 	public static String app_temp_id="FffSouKNxRoCEASeGQHFrZh-XxdHCkSOvKrf3AykShY";
+	/**
+	 * 无纪念日记录
+	 * 小程序消息模板
+	 */
+	public static String noRecords_temp_id="JN22SRjAZMxrdbBG7OeycQVZnvi8wMY5n9ew9fDCyDo";
 	
 	public static String app_sendUrl = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send"; // 发送模版信息
 	
 	public static String ADMIN_USER = "o5zEWwEkOF33kHVzy9p8njjteQo4"; // 运营人员账户
 	
-	public static String ADMIN_USER_CLOSED = "closed"; 
+	public static String ADMIN_USER_OPEN = "open"; 
 
 }

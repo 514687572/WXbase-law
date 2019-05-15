@@ -1,20 +1,18 @@
 package com.stip.net.miniapp.config;
 
-import java.io.File;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import com.google.common.collect.Lists;
 import com.stip.net.miniapp.api.WxMaService;
 import com.stip.net.miniapp.bean.WxMaKefuMessage;
 import com.stip.net.miniapp.bean.WxMaTemplateMessage;
 import com.stip.net.miniapp.message.WxMaMessageHandler;
 import com.stip.net.miniapp.message.WxMaMessageRouter;
-
 import me.chanjar.weixin.common.bean.result.WxMediaUploadResult;
 import me.chanjar.weixin.common.exception.WxErrorException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.io.File;
 
 @Configuration
 public class WxMaConfiguration {

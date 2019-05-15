@@ -1,10 +1,10 @@
 package com.stip.net.miniapp.bean;
 
-import java.io.Serializable;
-
 import com.stip.net.miniapp.builder.ImageBuilder;
 import com.stip.net.miniapp.builder.TextBuilder;
 import com.stip.net.miniapp.util.json.WxMaGsonBuilder;
+
+import java.io.Serializable;
 
 /**
  * 客服消息

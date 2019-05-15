@@ -1,19 +1,14 @@
 package com.stip.net.controller;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.net.URLEncoder;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.stip.net.entity.SysUser;
+import com.stip.net.miniapp.api.WxMaService;
+import com.stip.net.miniapp.api.impl.WxMaQrcodeServiceImpl;
+import com.stip.net.miniapp.bean.WxMaJscode2SessionResult;
+import com.stip.net.miniapp.bean.WxMaUserInfo;
+import com.stip.net.service.SysUserService;
+import com.stip.net.utils.GrnerateUUID;
+import com.stip.net.utils.JsonUtils;
+import me.chanjar.weixin.common.exception.WxErrorException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,17 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.stip.net.entity.Muser;
-import com.stip.net.miniapp.api.WxMaQrcodeService;
-import com.stip.net.miniapp.api.WxMaService;
-import com.stip.net.miniapp.api.impl.WxMaQrcodeServiceImpl;
-import com.stip.net.miniapp.bean.WxMaJscode2SessionResult;
-import com.stip.net.miniapp.bean.WxMaUserInfo;
-import com.stip.net.service.HelperService;
-import com.stip.net.utils.GrnerateUUID;
-import com.stip.net.utils.JsonUtils;
-
-import me.chanjar.weixin.common.exception.WxErrorException;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 微信小程序用户接口
@@ -49,7 +37,7 @@ public class WxMaUserController {
     @Autowired
     private WxMaQrcodeServiceImpl qrCodeService;
     @Autowired
-    private HelperService helperService;
+    private SysUserService sysUserService;
 
     /**
      * 登陆接口
@@ -78,8 +66,8 @@ public class WxMaUserController {
             request.getSession().setAttribute("sessinoKey", sessionKey);
             request.getSession().setAttribute("openId", openid);
             request.getSession().setAttribute(id, key);
-            
-            Muser muser=getInfo(sessionKey,signature,rawData,encryptedData,iv);
+
+			SysUser muser=getInfo(sessionKey,signature,rawData,encryptedData,iv);
 	        
 	        request.getSession().setAttribute("user", muser);
 	        
@@ -109,7 +97,7 @@ public class WxMaUserController {
         return JsonUtils.toJson(userInfo);
     }
     
-    public Muser getInfo(String sessionKey, String signature, String rawData, String encryptedData, String iv) throws Exception {
+    public SysUser getInfo(String sessionKey, String signature, String rawData, String encryptedData, String iv) throws Exception {
     	// 用户信息校验
     	if (!this.wxMaService.getUserService().checkUserInfo(sessionKey, rawData, signature)) {
     		System.out.println("user check failed");
@@ -117,9 +105,9 @@ public class WxMaUserController {
     	
     	// 解密用户信息
     	WxMaUserInfo userInfo = this.wxMaService.getUserService().getUserInfo(sessionKey, encryptedData, iv);
-    	
-    	Muser muser=helperService.findUserByUnionId(userInfo.getUnionId());
-    	Muser user =new Muser();
+
+		SysUser muser=sysUserService.findUserByUnionId(userInfo.getUnionId());
+		SysUser user =new SysUser();
     	if(muser==null) {
     		user.setId(GrnerateUUID.getUUID());
     		user.setCreateTime(new Date());
@@ -136,55 +124,23 @@ public class WxMaUserController {
     		user.setOpenid("1");
     		
     		try {
-				helperService.insertUser(user);
+				sysUserService.insert(user);
 			} catch (Exception e) {
 				user.setNickname("Normal");
-				helperService.insertUser(user);
+				sysUserService.insert(user);
 			}
     	}else if(muser.getAppOpenid()==null||"1".equals(muser.getAppOpenid())) {
 			muser.setAppOpenid(userInfo.getOpenId());
 			muser.setWatermark(JsonUtils.toJson(userInfo.getWatermark()));
 			user=muser;
-			helperService.updateByPrimaryKey(muser);
+			sysUserService.updateByPrimaryKey(muser);
     	}else if(muser.getNickname().equals(userInfo.getNickName()) || !userInfo.getAvatarUrl().equals(muser.getHeadimgurl())) {
 			muser.setHeadimgurl(userInfo.getAvatarUrl());
 			muser.setNickname(userInfo.getNickName());
-			helperService.updateByPrimaryKey(muser);
+			sysUserService.updateByPrimaryKey(muser);
 		}
     	
     	return user;
     }
-    
-	/**
-	 * 生成小程序二维码
-	 * 
-	 * @param request
-	 * @param resp
-	 * @throws Exception
-	 */
-	@GetMapping("getappCode")
-	public void getappCode(HttpServletRequest request, HttpServletResponse resp) throws Exception {
-		String dateId = request.getParameter("dateId");
-		String path = request.getParameter("path");
-		String width = request.getParameter("width");
-		String urlString = URLEncoder.encode(dateId);
 
-		WxMaQrcodeService.LineColor LineColor = new WxMaQrcodeService.LineColor("0", "0", "0");
-		File file = qrCodeService.createWxCodeLimit(urlString, path, Integer.parseInt(width), false, LineColor);
-
-		if (file != null) {
-			InputStream instreams = new FileInputStream(file);
-			BufferedImage bi = ImageIO.read(instreams);
-
-			resp.setHeader("Pragma", "no-cache");
-			resp.setHeader("Cache-Control", "no-cache");
-			resp.setDateHeader("Expires", 0);
-			resp.setContentType("image/png");
-			// 将图像输出到Servlet输出流中。
-			ServletOutputStream sos = resp.getOutputStream();
-			ImageIO.write(bi, "png", sos);
-			sos.close();
-		}
-	}
-	
 }

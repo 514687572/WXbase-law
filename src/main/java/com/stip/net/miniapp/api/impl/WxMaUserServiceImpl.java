@@ -1,12 +1,5 @@
 package com.stip.net.miniapp.api.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.google.common.base.Joiner;
 import com.stip.net.miniapp.api.WxMaService;
 import com.stip.net.miniapp.api.WxMaUserService;
@@ -14,8 +7,13 @@ import com.stip.net.miniapp.bean.WxMaJscode2SessionResult;
 import com.stip.net.miniapp.bean.WxMaUserInfo;
 import com.stip.net.miniapp.config.WxMaConfig;
 import com.stip.net.miniapp.util.crypt.WxMaCryptUtils;
-
 import me.chanjar.weixin.common.exception.WxErrorException;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author cja

@@ -1,8 +1,8 @@
 package com.stip.net.miniapp.bean;
 
-import java.io.Serializable;
-
 import com.stip.net.miniapp.util.json.WxMaGsonBuilder;
+
+import java.io.Serializable;
 
 /**
  * @author cja

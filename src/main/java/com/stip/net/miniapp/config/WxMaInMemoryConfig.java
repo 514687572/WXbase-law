@@ -1,15 +1,14 @@
 package com.stip.net.miniapp.config;
 
-import java.io.File;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.util.ToStringUtils;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+
+import java.io.File;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 基于内存的微信配置provider，在实际生产环境中应该将这些配置持久化
@@ -24,10 +23,10 @@ public class WxMaInMemoryConfig implements WxMaConfig {
   protected volatile String appid;
 	@Value("#{wxProperties.wxapp_appsecret}")
   protected volatile String secret;
-	@Value("#{wxProperties.wxapp_token}")
+	//@Value("#{wxProperties.wxapp_token}")
   protected volatile String token;
   protected volatile String accessToken;
-  @Value("#{wxProperties.wxapp_aeskey}")
+  //@Value("#{wxProperties.wxapp_aeskey}")
   protected volatile String aesKey;
   
   protected volatile long expiresTime;

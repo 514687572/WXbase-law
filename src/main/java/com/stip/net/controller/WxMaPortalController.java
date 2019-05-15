@@ -1,32 +1,22 @@
 package com.stip.net.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Map;
+import com.stip.net.utils.PayUtil;
+import me.chanjar.weixin.common.util.crypto.SHA1;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.stip.net.entity.Muser;
-import com.stip.net.service.HelperService;
-import com.stip.net.service.PushService;
-import com.stip.net.utils.PayUtil;
-
-import me.chanjar.weixin.common.util.crypto.SHA1;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Map;
 
 /**
  * @author cja
@@ -36,11 +26,7 @@ import me.chanjar.weixin.common.util.crypto.SHA1;
 public class WxMaPortalController {
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
   private String TOKEN = "d3r34rt45t54AApp";
-  @Resource
-  public PushService pushService;
-  @Autowired
-  private HelperService helperService;
-  
+
   @ResponseBody
   @RequestMapping(method=RequestMethod.GET,produces= "text/plain;charset=utf-8")
   public void authGet(@RequestParam(name = "signature", required = false) String signature,
@@ -102,21 +88,6 @@ public class WxMaPortalController {
 
 			out.print(msg);
 			
-			if("follow".equals(sessionFrom)) {
-				pushService.setSendCustomerMsgLink(to);
-			}else if(null!=map.get("Content")) {
-				if(((String) map.get("Content")).contains("提醒")) {
-					Muser user=helperService.findUserByAppOpenId(to);
-					if(user.getOpenid().length()<5) {
-						pushService.setSendCustomerMsgLink(to);
-					}else {
-						boolean follow=helperService.getUserStatus(user.getOpenid());
-						if(!follow) {
-							pushService.setSendCustomerMsgLink(to);
-						}
-					}
-				}
-			}
       } catch (Exception e) {
           e.printStackTrace();
       }

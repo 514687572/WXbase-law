@@ -1,9 +1,8 @@
 package com.stip.net.miniapp.bean;
 
+import com.stip.net.miniapp.util.json.WxMaGsonBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import com.stip.net.miniapp.util.json.WxMaGsonBuilder;
 
 /**
  * @author cja

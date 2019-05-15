@@ -1,13 +1,13 @@
 package com.stip.net.utils;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * 敏感词检测类 敏感词检测初始化规则： 将敏感词从词库载入，按照2字、3字、4字、5字等字数各生成一个敏感词哈希表。

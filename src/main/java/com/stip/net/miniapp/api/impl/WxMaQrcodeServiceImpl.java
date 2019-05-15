@@ -1,18 +1,16 @@
 package com.stip.net.miniapp.api.impl;
 
-import java.io.File;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.stip.net.miniapp.api.WxMaQrcodeService;
 import com.stip.net.miniapp.api.WxMaService;
 import com.stip.net.miniapp.bean.WxMaQrcode;
 import com.stip.net.miniapp.bean.WxMaWxcode;
 import com.stip.net.miniapp.bean.WxMaWxcodeLimit;
 import com.stip.net.miniapp.util.http.QrCodeRequestExecutor;
-
 import me.chanjar.weixin.common.exception.WxErrorException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.File;
 
 /**
  * @author cja

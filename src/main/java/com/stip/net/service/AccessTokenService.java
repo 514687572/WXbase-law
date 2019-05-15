@@ -1,5 +1,9 @@
 package com.stip.net.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.stip.net.utils.Constantutils;
+import org.springframework.stereotype.Service;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -8,11 +12,6 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import org.springframework.stereotype.Service;
-
-import com.alibaba.fastjson.JSONObject;
-import com.stip.net.utils.Constantutils;
 
 @Service
 public class AccessTokenService {

@@ -1,8 +1,15 @@
 package com.stip.net.miniapp.api.impl;
 
-import java.io.IOException;
-import java.util.concurrent.locks.Lock;
-
+import com.google.gson.JsonParser;
+import com.stip.net.miniapp.api.*;
+import com.stip.net.miniapp.config.WxMaConfig;
+import me.chanjar.weixin.common.bean.WxAccessToken;
+import me.chanjar.weixin.common.bean.result.WxError;
+import me.chanjar.weixin.common.exception.WxErrorException;
+import me.chanjar.weixin.common.util.crypto.SHA1;
+import me.chanjar.weixin.common.util.http.*;
+import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
+import me.chanjar.weixin.common.util.http.apache.DefaultApacheHttpClientBuilder;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -14,25 +21,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.JsonParser;
-import com.stip.net.miniapp.api.WxMaMediaService;
-import com.stip.net.miniapp.api.WxMaMsgService;
-import com.stip.net.miniapp.api.WxMaQrcodeService;
-import com.stip.net.miniapp.api.WxMaService;
-import com.stip.net.miniapp.api.WxMaUserService;
-import com.stip.net.miniapp.config.WxMaConfig;
-
-import me.chanjar.weixin.common.bean.WxAccessToken;
-import me.chanjar.weixin.common.bean.result.WxError;
-import me.chanjar.weixin.common.exception.WxErrorException;
-import me.chanjar.weixin.common.util.crypto.SHA1;
-import me.chanjar.weixin.common.util.http.HttpType;
-import me.chanjar.weixin.common.util.http.RequestExecutor;
-import me.chanjar.weixin.common.util.http.RequestHttp;
-import me.chanjar.weixin.common.util.http.SimpleGetRequestExecutor;
-import me.chanjar.weixin.common.util.http.SimplePostRequestExecutor;
-import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
-import me.chanjar.weixin.common.util.http.apache.DefaultApacheHttpClientBuilder;
+import java.io.IOException;
+import java.util.concurrent.locks.Lock;
 
 /**
  * @author cja

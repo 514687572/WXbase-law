@@ -2,7 +2,6 @@ package com.stip.net.miniapp.api;
 
 import com.stip.net.miniapp.bean.WxMaKefuMessage;
 import com.stip.net.miniapp.bean.WxMaTemplateMessage;
-
 import me.chanjar.weixin.common.exception.WxErrorException;
 
 /**
